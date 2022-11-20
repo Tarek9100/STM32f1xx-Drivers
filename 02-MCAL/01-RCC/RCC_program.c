@@ -1,65 +1,64 @@
-/**********************************************************
-******************Author : TAREK WAEL**********************
-******************Component : RCC	 **********************
-******************Version : 01       **********************/
+/*
+ * RCC_Program.c
+ *
+ *  Created on: Jul 9, 2022
+ *      Author: ENG TAREK
+ */
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "RCC_interface.h"
-#include "RCC_config.h"
-#include "RCC_private.h"
+#include "RCC.h"
 
-void RCC_voidInitSysClock(void){
-
-#if 	RCC_CLOCK_TYPE == RCC_HSE_CRYSTAL
-RCC->CR |= 0X0001000; /*Enable HSE_crystal*/
-RCC->CFGR =0x00000001
-#elif	RCC_CLOCK_TYPE == RCC_HSE_RC
-
-RCC->CR |= 0X0005000; /*Enable HSE_RC*/
-RCC->CFGR =0x00000001
-#elif	RCC_CLOCK_TYPE == RCC_HSI
-
-RCC->CR |= 0x00000001; /*Enable HSI*/
-RCC->CFGR =0x00000001
-#elif	RCC_CLOCK_TYPE == RCC_PLL
-RCC->CR |= 0x00000001;
-#else
-	#error("Wrong Clock Type!")	
-	
-}
-
-void RCC_voidEnableClock( u8 Copy_u8BusId, u8 Copy_u8PerId){
-
-if(Copy_u8PerId < 32){
-	
-	switch(Copy_u8BusId)
-
-	{
-	case RCC_AHB: SET_BIT(RCC->AHBENR,Copy_u8PerId);break;
-	case:RCC_APB1:SET_BIT(RCC->APB1ENR,Copy_u8PerId);break;
-	case:RCC_APB2:SET_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
+u32 Prescalar_Arr[8] = {2,4,8,16,64,128,256,512};
+u32 RCC_GetPCLK1Value(void){
+	u32 pclk1 = 16000000,SystemClock = 16000000;
+	u8 clksrc,temp,ahb=1,apb1=1;
+	clksrc = ((RCC->CFGR>>2) & 0x3);
+	switch(clksrc){
+	case 0:SystemClock = 16000000;break; //HSI
+	case 1:SystemClock = 8000000;break;  //HSE
+	case 2:temp = ((RCC->CFGR>>4) & 0xF);
+	if(temp<8){
+	ahb=1;
 	}
-}
-else{
-	
-
-}
-}
-void RCC_voidDisableClock( u8 Copy_u8BusId, u8 Copy_u8PerId){
-
-if(Copy_u8PerId < 32){
-	
-	switch(Copy_u8BusId)
-
-	{
-		case RCC_AHB: CLR_BIT(RCC->AHBENR,Copy_u8PerId);break;
-		case:RCC_APB1:CLR_BIT(RCC->APB1ENR,Copy_u8PerId);break;
-		case:RCC_APB2:CLR_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
+	else{
+	ahb=Prescalar_Arr[temp-8];
 	}
-}
-else{
-	
-/*Return Error*/
-}
-}	
+	temp = ((RCC->CFGR>>10) & 0x7);
+		if(temp<4){
+		apb1=1;
+		}
+		else{
+		apb1=Prescalar_Arr[temp-4];
+		}
+	}
+
+pclk1 = (SystemClock/ahb)/apb1;
+return pclk1;}
+u32 RCC_GetPCLK2Value(void){
+	u32 pclk2 = 16000000,SystemClock = 16000000;
+	u8 clksrc,temp,ahb=1,apb2=1;
+	clksrc = ((RCC->CFGR>>2) & 0x3);
+	switch(clksrc){
+	case 0:SystemClock = 16000000;break; //HSI
+	case 1:SystemClock = 8000000;break;  //HSE
+	case 2:temp = ((RCC->CFGR>>4) & 0xF);
+	if(temp<8){
+	ahb=1;
+	}
+	else{
+	ahb=Prescalar_Arr[temp-8];
+	}
+	temp = ((RCC->CFGR>>13) & 0x7);
+		if(temp<4){
+		apb2=1;
+		}
+		else{
+		apb2=Prescalar_Arr[temp-4];
+		}
+	}
+
+pclk2 = (SystemClock/ahb)/apb2;
+return pclk2;}
+
+
