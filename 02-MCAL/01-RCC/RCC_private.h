@@ -14,7 +14,7 @@
 
 #define RCC_AHB				1
 #define RCC_APB1			2
-#define RCC_APB2		`	3
+#define RCC_APB2			3
 
 #define RCC_PLL_HSI_DIV_2	1
 #define RCC_PLL_HSE_DIV_2	2

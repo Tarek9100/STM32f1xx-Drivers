@@ -73,8 +73,8 @@ if(Copy_u8PerId < 32){
 
 	{
 	case RCC_AHB: SET_BIT(RCC->AHBENR,Copy_u8PerId);break;
-	case:RCC_APB1:SET_BIT(RCC->APB1ENR,Copy_u8PerId);break;
-	case:RCC_APB2:SET_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
+	case RCC_APB1:SET_BIT(RCC->APB1ENR,Copy_u8PerId);break;
+	case RCC_APB2:SET_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
 	}
 }
 else{
@@ -90,8 +90,8 @@ if(Copy_u8PerId < 32){
 
 	{
 		case RCC_AHB: CLR_BIT(RCC->AHBENR,Copy_u8PerId);break;
-		case:RCC_APB1:CLR_BIT(RCC->APB1ENR,Copy_u8PerId);break;
-		case:RCC_APB2:CLR_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
+		case RCC_APB1:CLR_BIT(RCC->APB1ENR,Copy_u8PerId);break;
+		case RCC_APB2:CLR_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
 	}
 }
 else{
