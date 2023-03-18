@@ -60,15 +60,13 @@
 
  typedef struct
 {
-	volatile u32 MODER;                        /*!< GPIO port mode register,      Address offset: 0x00      */
-	volatile u32 OTYPER;                       /*!<     						  Address offset: 0x04      */
-	volatile u32 OSPEEDR;
-	volatile u32 PUPDR;
+	volatile u32 CRL;
+	volatile u32 CRH;
 	volatile u32 IDR;
 	volatile u32 ODR;
 	volatile u32 BSRR;
+	volatile u32 BRR;
 	volatile u32 LCKR;
-	volatile u32 AFR[2];					 /*!< AFR[0] : GPIO alternate function low register, AF[1] : GPIO alternate function high register    		Address offset: 0x20-0x24 */
 }GPIO_RegDef_t;
 
 typedef struct
