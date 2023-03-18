@@ -1,5 +1,5 @@
 /*
- * stm32f407xx.h
+ * stm32f103xx.h
  *
  *  Created on: May 8, 2022
  *      Author: ENG TAREK
@@ -35,12 +35,6 @@
 #define GPIOA_BASEADDR                  (AHB1PERIPH_BASEADDR + 0x0000)
 #define GPIOB_BASEADDR                  (AHB1PERIPH_BASEADDR + 0x0400)
 #define GPIOC_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x0800)
-#define GPIOD_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x0C00)
-#define GPIOE_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x1000)
-#define GPIOF_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x1400)
-#define GPIOG_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x1800)
-#define GPIOH_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x1C00)
-#define GPIOI_BASEADDR 					(AHB1PERIPH_BASEADDR + 0x2000)
 
 #define RCC_BASEADDR                    (AHB1PERIPH_BASEADDR + 0x1000) /**/
 #define EXTI_BASEADDR					(APB2PERIPH_BASEADDR + 0x3C00)
@@ -106,23 +100,17 @@ typedef struct
 
 }RCC_RegDef_t; /**/
 
-#define GPIOA  				((GPIO_RegDef_S*)GPIOA_BASEADDR)
-#define GPIOB  				((GPIO_RegDef_S*)GPIOB_BASEADDR)
-#define GPIOC  				((GPIO_RegDef_S*)GPIOC_BASEADDR)
-#define GPIOD  				((GPIO_RegDef_S*)GPIOD_BASEADDR)
-#define GPIOE  				((GPIO_RegDef_S*)GPIOE_BASEADDR)
-#define GPIOF  				((GPIO_RegDef_S*)GPIOF_BASEADDR)
-#define GPIOG  				((GPIO_RegDef_S*)GPIOG_BASEADDR)
-#define GPIOH  				((GPIO_RegDef_S*)GPIOH_BASEADDR)
-#define GPIOI  				((GPIO_RegDef_S*)GPIOI_BASEADDR)
+#define GPIOA  				((GPIO_RegDef_t*)GPIOA_BASEADDR)
+#define GPIOB  				((GPIO_RegDef_t*)GPIOB_BASEADDR)
+#define GPIOC  				((GPIO_RegDef_t*)GPIOC_BASEADDR)
 
-#define RCC 				((RCC_RegDef_S*)RCC_BASEADDR)
+#define RCC 				((RCC_RegDef_t*)RCC_BASEADDR)
 #define SYSCFG				((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 
-#define SPI1				 ((SPI_RegDef_S*)SPI1_BASEADDR)
-#define SPI2                 ((SPI_RegDef_S*)SPI2_BASEADDR)
-#define SPI3                 ((SPI_RegDef_S*)SPI3_BASEADDR)
-#define SPI4                 ((SPI_RegDef_S*)SPI4_BASEADDR)
+#define SPI1				 ((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2                 ((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3                 ((SPI_RegDef_t*)SPI3_BASEADDR)
+
 
 /*
  * Clock Enable Macros for SYSCFG peripheral
@@ -133,23 +121,17 @@ typedef struct
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
-#define GPIOA_PCLK_EN()			(RCC->AHB1ENR |=(1<<0))
-#define GPIOB_PCLK_EN()			(RCC->AHB1ENR |=(1<<1))
-#define GPIOC_PCLK_EN()			(RCC->AHB1ENR |=(1<<2))
-#define GPIOD_PCLK_EN()			(RCC->AHB1ENR |=(1<<3))
-#define GPIOE_PCLK_EN()			(RCC->AHB1ENR |=(1<<4))
-#define GPIOH_PCLK_EN()			(RCC->AHB1ENR |=(1<<7))
-
+#define GPIOA_PCLK_EN()			(RCC->APB2ENR |=(1<<2))
+#define GPIOB_PCLK_EN()			(RCC->APB2ENR |=(1<<3))
+#define GPIOC_PCLK_EN()			(RCC->APB2ENR |=(1<<4))
 
 /*
  * Clock Disable Macros for GPIOx peripherals
  */
-#define GPIOA_PCLK_DI()			(RCC->AHB1ENR &= ~(1<<0))
-#define GPIOB_PCLK_DI()			(RCC->AHB1ENR &= ~(1<<1))
-#define GPIOC_PCLK_DI()			(RCC->AHB1ENR &= ~(1<<2))
-#define GPIOD_PCLK_DI()			(RCC->AHB1ENR &= ~(1<<3))
-#define GPIOE_PCLK_DI()			(RCC->AHB1ENR &= ~(1<<4))
-#define GPIOH_PCLK_DI()			(RCC->AHB1ENR &= ~(1<<7))
+#define GPIOA_PCLK_DI()			(RCC->APB2ENR &= ~(1<<2))
+#define GPIOB_PCLK_DI()			(RCC->APB2ENR &= ~(1<<3))
+#define GPIOC_PCLK_DI()			(RCC->APB2ENR &= ~(1<<4))
+
 
 /* Clock Enable/Disable for SPIx peripherals */
 
@@ -161,9 +143,6 @@ typedef struct
 
 #define SPI3_PCLK_EN()			(RCC->APB1ENR |= (1<<15))
 #define SPI3_PCLK_DI()			(RCC->APB1ENR &= ~(1<<15))
-
-#define SPI4_PCLK_EN()			(RCC->APB2ENR |= (1<<13))
-#define SPI4_PCLK_DI()			(RCC->APB2ENR &= ~(1<<13))
 
 /* Clock Enable/Disable for USARTx peripherals */
 
