@@ -43,9 +43,9 @@ void GPIO_Initialize(GPIO_Handler * pGPIO_Handle){
 	case GPIO_OUTPUT:
 
 		if((pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)/8){
-			pGPIO_Handle-> pGPIO_x->CR[1] &= ~( 0xF << ( 4 * (pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)); // Clearing pre-set Mode bits before changing configuration
-			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Output_Type <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)));// x4 as each pin takes 2 bit-fields
-			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Speed <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)));// x4 as each pin takes 2 bit-fields
+			pGPIO_Handle-> pGPIO_x->CR[1] &= ~( 0xF << ( 4 * (pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))); // Clearing pre-set Mode bits before changing configuration
+			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Output_Type <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))));// x4 as each pin takes 2 bit-fields
+			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Speed <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))));// x4 as each pin takes 2 bit-fields
 			}
 		else{
 			pGPIO_Handle-> pGPIO_x->CR[0] &= ~( 0xF << ( 4 * pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)); // Clearing pre-set Mode bits before changing configuration
@@ -54,8 +54,8 @@ void GPIO_Initialize(GPIO_Handler * pGPIO_Handle){
 			}break;
 	case GPIO_INPUT:
 		if((pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)/8){
-		pGPIO_Handle-> pGPIO_x->CR[1] &= ~( 0xF << ( 4 * (pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)); // Clearing pre-set Mode bits before changing configuration
-		pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Input_Type <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)));// x4 as each pin takes 2 bit-fields
+		pGPIO_Handle-> pGPIO_x->CR[1] &= ~( 0xF << ( 4 * (pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))); // Clearing pre-set Mode bits before changing configuration
+		pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Input_Type <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))));// x4 as each pin takes 2 bit-fields
 		}
 		else{
 		pGPIO_Handle-> pGPIO_x->CR[0] &= ~( 0xF << ( 4 * pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)); // Clearing pre-set Mode bits before changing configuration
@@ -63,15 +63,15 @@ void GPIO_Initialize(GPIO_Handler * pGPIO_Handle){
 		}
 		if(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Input_Type == GPIO_IP_PullUp){
 			pGPIO_Handle->pGPIO_x->BSRR = (1<<pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number);
-			if((pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)/8) pGPIO_Handle->pGPIO_x->CR[1] &=~(4 <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)));
+			if((pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)/8) pGPIO_Handle->pGPIO_x->CR[1] &=~(4 <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))));
 			else pGPIO_Handle->pGPIO_x->CR[0] &= ~(4<<(4*pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number));
 		}break;
 	 case GPIO_AF:
 
 		if((pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)/8){
-			pGPIO_Handle-> pGPIO_x->CR[1] &= ~( 0xF << ( 4 * (pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)); // Clearing pre-set Mode bits before changing configuration
-			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Alt_Function <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)));// x4 as each pin takes 2 bit-fields
-			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Speed <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)-8)));// x4 as each pin takes 2 bit-fields
+			pGPIO_Handle-> pGPIO_x->CR[1] &= ~( 0xF << ( 4 * (pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))); // Clearing pre-set Mode bits before changing configuration
+			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Alt_Function <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))));// x4 as each pin takes 2 bit-fields
+			pGPIO_Handle->pGPIO_x->CR[1] |=(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Speed <<((4*(pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number-8))));// x4 as each pin takes 2 bit-fields
 			}
 		else{
 			pGPIO_Handle-> pGPIO_x->CR[0] &= ~( 0xF << ( 4 * pGPIO_Handle->GPIO_PinConfig.GPIO_Pin_Number)); // Clearing pre-set Mode bits before changing configuration
@@ -111,8 +111,7 @@ void GPIO_WritePin(GPIO_RegDef_t  *pGPIO_x,u8 Pin_Number,u8 Value)
 	else
 	{
 	//CLR_BIT(pGPIO_x->ODR,Pin_Number);
-	pGPIO_x->BRR =
-			(1<<Pin_Number);
+	pGPIO_x->BRR =(1<<Pin_Number);
 	}
 
 }
