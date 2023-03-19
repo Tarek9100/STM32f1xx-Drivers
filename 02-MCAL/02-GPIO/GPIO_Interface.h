@@ -1,19 +1,27 @@
-
 #ifndef GPIO_INTERFACE_H
 #define GPIO_INTERFACE_H
 
+#include "stm32f103xx.h"
 #include "GPIO_Private.h"
+#include "GPIO_Config.h"
+
+/* Configuration Struct */
+typedef struct
+{
+	u8 GPIO_Pin_Number;
+	u8 GPIO_Pin_Speed;
+	u8 GPIO_Pin_Mode;
+	u8 GPIO_Pin_Input_Type;
+	u8 GPIO_Pin_Output_Type;
+	u8 GPIO_Pin_Alt_Function;
+
+}GPIO_Pin_Config_t;
 
 typedef struct
 {
 	GPIO_RegDef_t  * pGPIO_x;
 	GPIO_Pin_Config_t  GPIO_PinConfig;
 }GPIO_Handler;
-
-
-/* Configuration Struct */
-
-
 
 
 /* Peripheral Clock setup*/

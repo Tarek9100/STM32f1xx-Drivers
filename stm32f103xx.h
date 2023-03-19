@@ -60,8 +60,7 @@
 
  typedef struct
 {
-	volatile u32 CRL;
-	volatile u32 CRH;
+	volatile u32 CR[2];
 	volatile u32 IDR;
 	volatile u32 ODR;
 	volatile u32 BSRR;
@@ -71,15 +70,14 @@
 
 typedef struct
 {
-	volatile u32 SPI_CR1;
-	volatile u32 SPI_CR2;
-	volatile u32 SPI_SR;
-	volatile u32 SPI_DR;
-	volatile u32 SPI_CRCPR;
-	volatile u32 SPI_RXCRCR;
-	volatile u32 SPI_TXCRCR;
-	volatile u32 SPI_I2SCFGR;
-	volatile u32 SPI_I2SPR;
+	volatile u32 CR[2];
+	volatile u32 SR;
+	volatile u32 DR;
+	volatile u32 CRCPR;
+	volatile u32 RXCRCR;
+	volatile u32 TXCRCR;
+	volatile u32 I2SCFGR;
+	volatile u32 I2SPR;
 }SPI_RegDef_t;
 
 typedef struct
