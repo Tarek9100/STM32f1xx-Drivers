@@ -31,11 +31,11 @@ void (*CallBack)(void);
 
 #define SCB_AIRCR					*((volatile u32*)SCB_BASEADDR + 0x000C)		 //System control register responsible for interrupt groups & sub-groups
 
-#define SCB_GROUP3                   0x05FA0300									  // 4 bits for group and 0 bits for sub-group
-#define SCB_GROUP4                   0x05FA0400                                   // 3 bits for group and 1 bits for sub-group
-#define SCB_GROUP5                   0x05FA0500                                   // 2 bits for group and 2 bits for sub-group
-#define SCB_GROUP6                   0x05FA0600                                   // 1 bits for group and 3 bits for sub-group
-#define SCB_GROUP7                   0x05FA0700                                   // 0 bits for group and 4 bits for sub-group
+#define SCB_GROUP3                   0x05FA0300
+#define SCB_GROUP4                   0x05FA0400
+#define SCB_GROUP5                   0x05FA0500
+#define SCB_GROUP6                   0x05FA0600
+#define SCB_GROUP7                   0x05FA0700
 
 
 

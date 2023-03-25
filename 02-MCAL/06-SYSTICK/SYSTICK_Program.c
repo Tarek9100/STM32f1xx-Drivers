@@ -28,7 +28,16 @@ SYSTICK->LOAD = Local_u32Load;
 
 	CallBack = ptr;
 }
-
-void STK_Handler(){
+u32 STK_Get_Elapsed_Time(void){
+	return (SYSTICK->LOAD - SYSTICK->VAL);
+}
+u32 STK_Get_Remaining_Time(void){
+	return (SYSTICK->VAL);
+}
+void STK_Stop_Interval(void){
+	SYSTICK->LOAD = 0;
+	SYSTICK->VAL = 0;
+}
+void SysTick_Handler(){
 	CallBack();
 }
