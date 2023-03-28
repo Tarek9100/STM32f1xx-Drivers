@@ -7,7 +7,7 @@
 #define NVIC_PRIVATE_H
 
 
-void (*CallBack)(void);
+static void (*CallBack)(void) = NULL;
 
 #define NVIC_BASEADDR				0xE000E100U
 #define SCB_BASEADDR				0xE000ED00U

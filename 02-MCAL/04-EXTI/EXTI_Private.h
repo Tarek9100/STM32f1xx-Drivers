@@ -8,6 +8,23 @@
 #ifndef EXTI_PRIVATE_H_
 #define EXTI_PRIVATE_H_
 
+static void (*EXTI0_CallBack)(void)= NULL;
+static void (*EXTI1_CallBack)(void)= NULL;
+static void (*EXTI2_CallBack)(void)= NULL;
+static void (*EXTI3_CallBack)(void)= NULL;
+static void (*EXTI4_CallBack)(void)= NULL;
+static void (*EXTI5_CallBack)(void)= NULL;
+static void (*EXTI6_CallBack)(void)= NULL;
+static void (*EXTI7_CallBack)(void)= NULL;
+static void (*EXTI8_CallBack)(void)= NULL;
+static void (*EXTI9_CallBack)(void)= NULL;
+static void (*EXTI10_CallBack)(void)= NULL;
+static void (*EXTI11_CallBack)(void)= NULL;
+static void (*EXTI12_CallBack)(void)= NULL;
+static void (*EXTI13_CallBack)(void)= NULL;
+static void (*EXTI14_CallBack)(void)= NULL;
+static void (*EXTI15_CallBack)(void)= NULL;
+
 /*EXTI Lines*/
 #define LINE0              0
 #define LINE1              1
