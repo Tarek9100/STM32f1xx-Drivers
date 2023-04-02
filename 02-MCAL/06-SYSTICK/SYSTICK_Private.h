@@ -8,7 +8,7 @@
 #ifndef SYSTICK_PRIVATE_H_
 #define SYSTICK_PRIVATE_H_
 
-void (*CallBack)(void);
+static void (*CallBack)(void) = NULL;
 #define  SYSTICK_BASEADDR			0xE000E010
 
 #define SYSTICK						((STK_RegDef_t*)SYSTICK_BASEADDR)
@@ -20,6 +20,7 @@ typedef struct{
 }STK_RegDef_t;
 
 #define STK_ENABLE					0
+#define STK_INT_ENABLE				1
 #define STK_CLKSOURCE				3
 #define STK_COUNTFLAG				16
 
