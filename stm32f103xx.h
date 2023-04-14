@@ -27,8 +27,8 @@
 #define PERIPH_BASEADDR 						0x40000000U
 #define APB1PERIPH_BASEADDR						PERIPH_BASEADDR
 #define APB2PERIPH_BASEADDR						0x40010000U
-#define AHB1PERIPH_BASEADDR						0x40020000U
-#define AHB2PERIPH_BASEADDR						0x50000000U
+#define AHBPERIPH_BASEADDR						0x40018000U
+
 
 
 
@@ -36,10 +36,11 @@
 #define GPIOB_BASEADDR                  (APB2PERIPH_BASEADDR + 0x0C00)
 #define GPIOC_BASEADDR 					(APB2PERIPH_BASEADDR + 0x1000)
 
-#define RCC_BASEADDR                    (AHB1PERIPH_BASEADDR + 0x1000) /**/
+#define RCC_BASEADDR                    (AHBPERIPH_BASEADDR + 0x9000) /**/
 #define EXTI_BASEADDR					(APB2PERIPH_BASEADDR + 0x0400)
 #define AFIO_BASEADDR					(APB2PERIPH_BASEADDR + 0x0000)
 #define SYSCFG_BASEADDR					(APB2PERIPH_BASEADDR + 0x3800)
+#define DMA1_BASEADDR					(AHBPERIPH_BASEADDR + 0x8000)
 
 #define SPI1_BASEADDR					(APB2PERIPH_BASEADDR + 0x3000)
 #define SPI2_BASEADDR					(APB1PERIPH_BASEADDR + 0x3800)
@@ -116,12 +117,29 @@ typedef struct{
 }AFIO_RegDef_t;
 
 
+
+typedef struct{
+	volatile u32 CCR;
+	volatile u32 CNDTR;
+	volatile u32 CPAR;
+	volatile u32 CMAR;
+	volatile u32 Reserved;
+}DMA_Channel_t;
+
+typedef struct{
+	volatile u32 ISR;
+	volatile u32 IFCR;
+	DMA_Channel_t Channel[7];
+
+}DMA_RegDef_t;
+
 #define GPIOA  				((GPIO_RegDef_t*)GPIOA_BASEADDR)
 #define GPIOB  				((GPIO_RegDef_t*)GPIOB_BASEADDR)
 #define GPIOC  				((GPIO_RegDef_t*)GPIOC_BASEADDR)
 
 #define RCC 				((RCC_RegDef_t*)RCC_BASEADDR)
 #define SYSCFG				((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
+#define DMA1				((DMA_RegDef_t*)DMA1_BASEADDR)
 
 #define SPI1				 ((SPI_RegDef_t*)SPI1_BASEADDR)
 #define SPI2                 ((SPI_RegDef_t*)SPI2_BASEADDR)
@@ -132,8 +150,14 @@ typedef struct{
 /*
  * Clock Enable Macros for SYSCFG peripheral
  */
-
 #define SYSCFG_PCLK_EN() (RCC->APB2ENR |= (1 << 14))
+
+/*
+ * Clock Enable Macros for DMA peripheral
+ */
+
+#define DMA1_PCLK_EN() (RCC->AHBENR |= (1 << 0))
+
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -192,13 +216,22 @@ typedef struct{
 #define I2C2_PCLK_DI()			(RCC->APB1ENR &= ~(1<<22))
 
 
+
+
 #define IRQ_NO_EXTI0			6
 #define IRQ_NO_EXTI1			7
 #define IRQ_NO_EXTI2			8
 #define IRQ_NO_EXTI3			9
 #define IRQ_NO_EXTI4			10
 #define IRQ_NO_EXTI9_5			23
-#define IRQ_NO_EXTI10			40
+#define IRQ_NO_EXTI15_10		40
+#define IRQ_NO_DMA1_CH1			11
+#define IRQ_NO_DMA1_CH2			12
+#define IRQ_NO_DMA1_CH3			13
+#define IRQ_NO_DMA1_CH4			14
+#define IRQ_NO_DMA1_CH5			15
+#define IRQ_NO_DMA1_CH6			16
+#define IRQ_NO_DMA1_CH7			17
 
 /*
 	this enum represents Alternative function in lower register
@@ -221,7 +254,6 @@ typedef struct{
 	1110: AF14
 	1111: AF15
 */
-
 typedef enum
 {
 	AF0,AF1,AF2,AF3,AF4,AF5,AF6,AF7,AF8,AF9,AF10,AF11,AF12,AF13,AF14,AF15
@@ -232,3 +264,4 @@ typedef enum
 	A,B,C
 }AFPortMap;
 #endif
+

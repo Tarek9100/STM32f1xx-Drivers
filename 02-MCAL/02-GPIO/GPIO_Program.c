@@ -123,9 +123,7 @@ u16 GPIO_ReadPort(GPIO_RegDef_t  * pGPIO_x)
 
 void GPIO_WritePort(GPIO_RegDef_t  *pGPIO_x,u16 Value)
 {
-
 	pGPIO_x->ODR = Value;
-
 }
 
 void GPIO_TogglePin(GPIO_RegDef_t  *pGPIO_x,u8 Pin_Number){

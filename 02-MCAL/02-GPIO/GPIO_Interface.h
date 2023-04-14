@@ -40,11 +40,4 @@ void GPIO_WritePort(GPIO_RegDef_t  *pGPIO_x,u16 Value);
 void GPIO_TogglePin(GPIO_RegDef_t  *pGPIO_x,u8 Pin_Number);
 
 
-void GPIO_USART1_Init();
-void GPIO_USART2_Init();
-void GPIO_USART3_Init();
-
-void GPIO_ADC_Config(void);
-void GPIO_R1_Init(void);
-
 #endif

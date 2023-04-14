@@ -5,10 +5,10 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "stm32f103xx.h"
+
 #include "RCC_interface.h"
-#include "RCC_config.h"
-#include "RCC_private.h"
+
+
 
 void RCC_voidInitSysClock(void){
 RCC->CFGR &= ~(0x3);	 
@@ -74,7 +74,7 @@ if(Copy_u8PerId < 32){
 	{
 	case RCC_AHB: SET_BIT(RCC->AHBENR,Copy_u8PerId);break;
 	case RCC_APB1:SET_BIT(RCC->APB1ENR,Copy_u8PerId);break;
-	case RCC_APB2:SET_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
+	case RCC_APB2:SET_BIT(RCC->APB2ENR,Copy_u8PerId);break;
 	}
 }
 else{
@@ -91,7 +91,7 @@ if(Copy_u8PerId < 32){
 	{
 		case RCC_AHB: CLR_BIT(RCC->AHBENR,Copy_u8PerId);break;
 		case RCC_APB1:CLR_BIT(RCC->APB1ENR,Copy_u8PerId);break;
-		case RCC_APB2:CLR_BIT(RCC->APB2ENR,Copy_u8PerId);break;	
+		case RCC_APB2:CLR_BIT(RCC->APB2ENR,Copy_u8PerId);break;
 	}
 }
 else{

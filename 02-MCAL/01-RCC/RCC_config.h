@@ -13,7 +13,7 @@
  */
 #define RCC_CLOCK_TYPE		RCC_HSI
 
-#if RCC_CLOCK_TYPE	==		RCC_PLL 
+#if RCC_CLOCK_TYPE  ==       RCC_PLL
 /*PLL Input Clock
 Options: 
  1-RCC_PLL_HSI_DIV_2		2-RCC_PLL_HSE_DIV_2			3-RCC_PLL_HSE
