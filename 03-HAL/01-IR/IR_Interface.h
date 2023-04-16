@@ -17,7 +17,8 @@
 
 void IR_voidGetFrame(void);
 void IR_Init(void);
-
+void IR_voidTakeAction(void);
+void IR_voidPlay(void);
 
 
 
