@@ -15,12 +15,12 @@ volatile u8 u8EdgeCounter = 0;
 volatile u8 u8Data=0;
 
 /*This function reads the frame and translate it to specific action through u8Data variable*/
-void voidPlay(void){
+void IR_voidPlay(void){
 	asm("NOP");
 }
-void voidTakeAction(void){
+void IR_voidTakeAction(void){
 	u8 i;
-	u8 u32FrameData=0;
+	u32 u32FrameData[50]={0};
 	if(u32FrameData[0] >= 11000  && u32FrameData[0] <=15000){
 		for(i=0;i<8;i++){
 			if(u32FrameData[17+i] >=2000 && u32FrameData[17+i] <=2300){
@@ -43,12 +43,12 @@ void voidTakeAction(void){
 
 void IR_voidGetFrame(void){
 	if(u8StartFlag ==0){
-		STK_Count_MicroSeconds(1000000,voidTakeAction);
+		STK_Count_MicroSeconds(1000000,IR_voidTakeAction);
 		u8StartFlag =1;
 	}
 	else{
 		u32FrameData[u8EdgeCounter]= STK_Get_Elapsed_Time();
-		STK_Count_MicroSeconds(1000000,voidTakeAction);
+		STK_Count_MicroSeconds(1000000,IR_voidTakeAction);
 		u8EdgeCounter++;
 	}
 }
