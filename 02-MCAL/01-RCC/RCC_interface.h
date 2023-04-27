@@ -14,5 +14,6 @@ void RCC_voidInitSysClock(void);
 void RCC_voidEnableClock( u8 Copy_u8BusId, u8 Copy_u8PerId);
 void RCC_voidDisableClock( u8 Copy_u8BusId, u8 Copy_u8PerId);
 void RCC_voidInitPBusClock(void);
-
+u32 RCC_u32GetPCLK1Value(void);
+u32 RCC_u32GetPCLK2Value(void);
 #endif

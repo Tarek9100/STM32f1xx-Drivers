@@ -11,7 +11,7 @@
  Options:
  1-RCC_HSE_CRYSTAL			2-RCC_HSE_RC				3-RCC_HSI			4-RCC_PLL  	
  */
-#define RCC_CLOCK_TYPE		RCC_HSI
+#define RCC_CLOCK_TYPE		RCC_HSE_CRYSTAL
 
 #if RCC_CLOCK_TYPE  ==       RCC_PLL
 /*PLL Input Clock

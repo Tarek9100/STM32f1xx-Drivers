@@ -44,7 +44,6 @@
 
 #define SPI1_BASEADDR					(APB2PERIPH_BASEADDR + 0x3000)
 #define SPI2_BASEADDR					(APB1PERIPH_BASEADDR + 0x3800)
-#define SPI3_BASEADDR					(APB1PERIPH_BASEADDR + 0x3C00)
 
 #define I2C1_BASEADDR					(APB1PERIPH_BASEADDR + 0x5400)
 #define I2C2_BASEADDR					(APB1PERIPH_BASEADDR + 0x5800)
@@ -133,6 +132,17 @@ typedef struct{
 
 }DMA_RegDef_t;
 
+
+typedef struct{
+	volatile u32 USART_SR;
+	volatile u32 USART_DR;
+	volatile u32 USART_BRR;
+	volatile u32 USART_CR[3];
+	volatile u32 USART_GTPR;
+
+}USART_RegDef_t;
+
+
 #define GPIOA  				((GPIO_RegDef_t*)GPIOA_BASEADDR)
 #define GPIOB  				((GPIO_RegDef_t*)GPIOB_BASEADDR)
 #define GPIOC  				((GPIO_RegDef_t*)GPIOC_BASEADDR)
@@ -143,10 +153,15 @@ typedef struct{
 
 #define SPI1				 ((SPI_RegDef_t*)SPI1_BASEADDR)
 #define SPI2                 ((SPI_RegDef_t*)SPI2_BASEADDR)
-#define SPI3                 ((SPI_RegDef_t*)SPI3_BASEADDR)
 
 #define EXTI 				((EXTI_RegDef_t*)EXTI_BASEADDR)
 #define AFIO 				((AFIO_RegDef_t*)AFIO_BASEADDR)
+
+#define USART1               ((USART_RegDef_t*)USART1_BASEADDR)
+#define USART2               ((USART_RegDef_t*)USART2_BASEADDR)
+#define USART3               ((USART_RegDef_t*)USART3_BASEADDR)
+#define UART4              	 ((USART_RegDef_t*)UART4_BASEADDR)
+#define UART5              	 ((USART_RegDef_t*)UART5_BASEADDR)
 /*
  * Clock Enable Macros for SYSCFG peripheral
  */
