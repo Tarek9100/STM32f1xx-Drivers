@@ -2,50 +2,6 @@
 #define USART_PRIVATE_H
 
 
-#define PERIPH_BASEADDR 						0x40000000U
-#define APB1PERIPH_BASEADDR						PERIPH_BASEADDR
-#define APB2PERIPH_BASEADDR						0x40010000U
-#define AHBPERIPH_BASEADDR						0x40018000U
-
-
-#define USART1_BASEADDR					(APB2PERIPH_BASEADDR + 0x3800)
-#define USART2_BASEADDR					(APB1PERIPH_BASEADDR + 0x4400)
-#define USART3_BASEADDR					(APB1PERIPH_BASEADDR + 0x4800)
-#define UART4_BASEADDR					(APB1PERIPH_BASEADDR + 0x4C00)
-#define UART5_BASEADDR					(APB1PERIPH_BASEADDR + 0x5000)
-
-
-#define USART1               ((USART_RegDef_t*)USART1_BASEADDR)
-#define USART2               ((USART_RegDef_t*)USART2_BASEADDR)
-#define USART3               ((USART_RegDef_t*)USART3_BASEADDR)
-#define UART4              	 ((USART_RegDef_t*)UART4_BASEADDR)
-#define UART5              	 ((USART_RegDef_t*)UART5_BASEADDR)
-
-#define USART_FLAG_TXE			7
-#define USART_FLAG_TC			6
-#define USART_FLAG_RXNE			5
-#define USART_CR1_OVER8			15
-
-typedef struct{
-	volatile u32 USART_SR;
-	volatile u32 USART_DR;
-	volatile u32 USART_BRR;
-	volatile u32 USART_CR[3];
-	volatile u32 USART_GTPR;
-
-}USART_RegDef_t;
-
-typedef struct
-{
-	u8 USART_Mode;
-	u32 USART_Baud;
-	u8 USART_NoOfStopBits;
-	u8 USART_WordLength;
-	u8 USART_ParityControl;
-	u8 USART_HWFlowControl;
-
-}USART_Pin_Config_t;
-
 
 
 

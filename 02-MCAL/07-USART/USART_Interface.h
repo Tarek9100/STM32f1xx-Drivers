@@ -3,8 +3,19 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "USART_Private.h"
-#include "USART_Config.h"
+
+
+
+typedef struct
+{
+	u8 USART_Mode;
+	u32 USART_Baud;
+	u8 USART_NoOfStopBits;
+	u8 USART_WordLength;
+	u8 USART_ParityControl;
+	u8 USART_HWFlowControl;
+
+}USART_Pin_Config_t;
 
 typedef struct{
 	USART_RegDef_t *pUSARTx;

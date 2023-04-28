@@ -8,10 +8,12 @@
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 
+#include "stm32f103xx.h"
+#include "RCC_interface.h"
 #include "USART_Interface.h"
 #include "USART_Private.h"
 #include "USART_Config.h"
-#include "RCC.h"
+
 
 
 
@@ -28,12 +30,6 @@ void USART_PeriClockControl(USART_RegDef_t *pUSARTx,u8 EnOrDi){
 			else if(pUSARTx == USART3){
 				USART3_PCLK_DI();
 			}
-			else if(pUSARTx == UART4){
-				UART4_PCLK_DI();
-			}
-			else if(pUSARTx == UART5){
-				UART5_PCLK_DI();
-			}
 		}
 		else if(EnOrDi == ENABLE){
 			SET_BIT(pUSARTx->USART_CR[0],13);
@@ -45,12 +41,6 @@ void USART_PeriClockControl(USART_RegDef_t *pUSARTx,u8 EnOrDi){
 			}
 			else if(pUSARTx == USART3){
 				USART3_PCLK_EN();
-			}
-			else if(pUSARTx == UART4){
-				UART4_PCLK_EN();
-			}
-			else if(pUSARTx == UART5){
-				UART5_PCLK_EN();
 			}
 		}
 }
@@ -65,8 +55,8 @@ void USART_Init(USART_Handler_t *pUSARTHandler)
 
 
 	//Enable USART Tx and Rx engines according to the USART_Mode configuration item
-	if ( pUSARTHandler->USART_Config.USART_Mode == USART_MODE_ONLY_RX)
-	{
+	if(pUSARTHandler->USART_Config.USART_Mode == USART_MODE_ONLY_RX){
+
 		//Enables the Receiver bit field
 		SET_BIT(tempreg,2);
 	}else if (pUSARTHandler->USART_Config.USART_Mode == USART_MODE_ONLY_TX)
@@ -76,7 +66,7 @@ void USART_Init(USART_Handler_t *pUSARTHandler)
 
 	}else if (pUSARTHandler->USART_Config.USART_Mode == USART_MODE_TXRX)
 	{
-		//Enables the both Transmitter and Receiver bit fields
+		//Enables both Transmitter and Receiver bit fields
 		SET_BIT(tempreg,2);
 		SET_BIT(tempreg,3);
 	}
@@ -296,11 +286,11 @@ void USART_SetBaudRate(USART_RegDef_t *pUSARTx, u32 BaudRate)
   if(pUSARTx == USART1 )
   {
 	   //USART1 is hanging on APB2 bus
-	   PCLKx = RCC_GetPCLK2Value();
+	   PCLKx = RCC_u32GetPCLK2Value();
   }
   else
   {
-	   PCLKx = RCC_GetPCLK1Value();
+	   PCLKx = RCC_u32GetPCLK1Value();
   }
 
 	   //over sampling by 16
@@ -329,36 +319,36 @@ void USART_SetBaudRate(USART_RegDef_t *pUSARTx, u32 BaudRate)
 void USART3_Init(){
 	USART_Handler_t USART3_H;
 	USART3_H.pUSARTx = USART3;
-	USART3_H.USART_Config.USART_Baud = USART_STD_BAUD_9600;
-	USART3_H.USART_Config.USART_NoOfStopBits = USART_STOPBITS_1;
-	USART3_H.USART_Config.USART_HWFlowControl = USART_HW_FLOW_CTRL_NONE;
-	USART3_H.USART_Config.USART_Mode = USART_MODE_TXRX;
-	USART3_H.USART_Config.USART_WordLength = USART_WORDLEN_8BITS;
-	USART3_H.USART_Config.USART_ParityControl = USART_PARITY_DISABLE;
+	USART3_H.USART_Config.USART_Baud = USART_BAUD;
+	USART3_H.USART_Config.USART_NoOfStopBits = USART_STOPBITS;
+	USART3_H.USART_Config.USART_HWFlowControl = USART_HW_FLOW;
+	USART3_H.USART_Config.USART_Mode = USART_MODE;
+	USART3_H.USART_Config.USART_WordLength = USART_WORDLEN;
+	USART3_H.USART_Config.USART_ParityControl = USART_PARITYCTRL;
 	USART_Init(&USART3_H);
 	USART_PeriClockControl(USART3, ENABLE);
 }
 void USART2_Init(){
 	USART_Handler_t USART2_H;
 	USART2_H.pUSARTx = USART2;
-	USART2_H.USART_Config.USART_Baud = USART_STD_BAUD_9600;
-	USART2_H.USART_Config.USART_NoOfStopBits = USART_STOPBITS_1;
-	USART2_H.USART_Config.USART_HWFlowControl = USART_HW_FLOW_CTRL_NONE;
-	USART2_H.USART_Config.USART_Mode = USART_MODE_TXRX;
-	USART2_H.USART_Config.USART_WordLength = USART_WORDLEN_8BITS;
-	USART2_H.USART_Config.USART_ParityControl = USART_PARITY_DISABLE;
+	USART2_H.USART_Config.USART_Baud = USART_BAUD;
+	USART2_H.USART_Config.USART_NoOfStopBits = USART_STOPBITS;
+	USART2_H.USART_Config.USART_HWFlowControl = USART_HW_FLOW;
+	USART2_H.USART_Config.USART_Mode = USART_MODE;
+	USART2_H.USART_Config.USART_WordLength = USART_WORDLEN;
+	USART2_H.USART_Config.USART_ParityControl = USART_PARITYCTRL;
 	USART_Init(&USART2_H);
 	USART_PeriClockControl(USART2, ENABLE);
 }
 void USART1_Init(){
 	USART_Handler_t USART1_H;
 	USART1_H.pUSARTx = USART1;
-	USART1_H.USART_Config.USART_Baud = USART_STD_BAUD_9600;
-	USART1_H.USART_Config.USART_NoOfStopBits = USART_STOPBITS_1;
-	USART1_H.USART_Config.USART_HWFlowControl = USART_HW_FLOW_CTRL_NONE;
-	USART1_H.USART_Config.USART_Mode = USART_MODE_TXRX;
-	USART1_H.USART_Config.USART_WordLength = USART_WORDLEN_8BITS;
-	USART1_H.USART_Config.USART_ParityControl = USART_PARITY_DISABLE;
+	USART1_H.USART_Config.USART_Baud = USART_BAUD;
+	USART1_H.USART_Config.USART_NoOfStopBits = USART_STOPBITS;
+	USART1_H.USART_Config.USART_HWFlowControl = USART_HW_FLOW;
+	USART1_H.USART_Config.USART_Mode = USART_MODE;
+	USART1_H.USART_Config.USART_WordLength = USART_WORDLEN;
+	USART1_H.USART_Config.USART_ParityControl = USART_PARITYCTRL;
 	USART_Init(&USART1_H);
 	USART_PeriClockControl(USART1, ENABLE);
 }
