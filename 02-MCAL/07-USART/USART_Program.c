@@ -144,7 +144,7 @@ void USART_Init(USART_Handler_t *pUSARTHandler)
 
 
 	pUSARTHandler->pUSARTx->USART_CR[3] = tempreg;
-	//void USART_SetBaudRate(pUSARTHandler->pUSARTx , pUSARTHandler->USART_Config.USART_Baud);
+	USART_SetBaudRate(pUSARTHandler->pUSARTx , pUSARTHandler->USART_Config.USART_Baud);
 }
 void USART_SendData(USART_Handler_t *pUSARTHandle, u8 *pTxBuffer, u32 Len)
 {
@@ -307,7 +307,7 @@ void USART_SetBaudRate(USART_RegDef_t *pUSARTx, u32 BaudRate)
   F_part = (usartdiv - (M_part * 100));
 
   //Calculate the final fractional
-	   F_part = ((( F_part * 16)+ 50) / 100) & ((u8)0x0F);
+  F_part = ((( F_part * 16)+ 50) / 100) & ((u8)0x0F);
 
   //Place the fractional part in appropriate bit position . refer USART_BRR
   tempreg |= F_part;
